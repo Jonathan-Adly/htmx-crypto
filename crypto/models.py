@@ -1,3 +1,49 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+from datetime import date
 
-# Create your models here.
+
+class Transaction(models.Model):
+
+    user = models.ForeignKey(
+        get_user_model(), related_name="transactions", on_delete=models.CASCADE
+    )
+
+    exchange = models.CharField(max_length=250, blank=True)
+    date = models.DateField(default=date.today)
+
+    sold_currency = models.CharField(max_length=3)
+    sold_currency_amount = models.DecimalField(
+        max_digits=19,
+        decimal_places=10,
+    )
+
+    sold_currency_fee = models.DecimalField(
+        max_digits=19,
+        decimal_places=10,
+    )
+    bought_currency = models.CharField(max_length=3)
+    bought_currency_amount = models.DecimalField(max_digits=19, decimal_places=10)
+
+    bought_currency_fee = models.DecimalField(
+        max_digits=19,
+        decimal_places=10,
+    )
+
+    price = models.DecimalField(max_digits=19, decimal_places=10)
+
+    class Meta:
+        ordering = ["date"]
+
+    def __str__(self):
+        return f"{self.user.email} on {self.exchange} - {self.date}"
+
+    def save(self, *args, **kwargs):
+        self.price = (self.sold_currency_amount + self.sold_currency_fee) / (
+            self.bought_currency_amount + self.bought_currency_fee
+        )
+        if not self.bought_currency_fee:
+            self.bought_currency_fee = 0
+        if not self.sold_currency_fee:
+            self.sold_currency_fee = 0
+        super(Transaction, self).save(*args, **kwargs)

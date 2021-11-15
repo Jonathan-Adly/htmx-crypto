@@ -1,0 +1,58 @@
+       
+            {% load crispy_forms_tags %}
+        
+            <form class="container">
+            {% if errors %} {{errors}} {% endif %}
+             <div class="form-row row-eq-spacing-sm">
+                <div class="col-sm">
+                    {{form.date|as_crispy_field}}
+                </div>
+                <div class= "col-sm">
+                 {{form.exchange|as_crispy_field}}
+                </div>
+             </div>
+             
+           
+             <div class="form-row row-eq-spacing">
+
+                <div class="col-6 mt-5">
+                    <label class="required font-weight-bold">Paid / Sent / Withdrawn</label>      
+                </div>
+
+                <div class="col-6 mt-5">
+                <label class="required font-weight-bold">Bought / Received / Deposited</label>
+                </div>
+
+                <div class="col-6 mt-5">
+                {{form.sold_currency_amount}}
+                </div>
+                
+                <div class="col-6 mt-5">
+                {{form.bought_currency_amount}}
+                </div>
+            
+
+            
+                <div class="col-6 mt-5">
+                {{form.sold_currency}}
+                </div>
+
+                <div class="col-6 mt-5">
+                {{form.bought_currency}}
+                </div>
+         
+
+
+                <div class="col-6 mt-5">
+                {{form.sold_currency_fee}}
+                </div>
+
+                <div class="col-6 mt-5">
+                {{form.bought_currency_fee}}
+                </div>
+           
+            </div>
+                <div class="text-right">
+                <button class="btn btn-primary"> Submit </button>
+                </div>
+            </form>

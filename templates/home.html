@@ -8,7 +8,7 @@
 <div class="content">
 {% if request.user.is_authenticated %}
 <div class="card" id= "transaction">
-<a hx-get="#" hx-target="#transaction" hx-swap="innerHTML"> Add new transaction </a>.
+{% include 'components/transaction_form.html'%}
 
 </div>
 

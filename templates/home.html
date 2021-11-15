@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load django_htmx %}
+{% django_htmx_script %}
+
+
+{% block content %}
+
+<div class="content">
+{% if request.user.is_authenticated %}
+<div class="card" id= "transaction">
+<a hx-get="#" hx-target="#transaction" hx-swap="innerHTML"> Add new transaction </a>.
+
+</div>
+
+{% else %}
+<div hx-boost="true">
+To start please <a href= "{% url 'account_signup' %}"> make an account </a> or <a href="{% url 'account_login' %}"> login</a>.
+
+</div>
+{% endif %}
+</div>
+{% endblock %}

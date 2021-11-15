@@ -1,0 +1,82 @@
+<nav class="navbar" hx-boost="true">
+ <!-- big font on big screens-->
+<a href="{% url 'home' %}" class="navbar-brand ml-10 hidden-sm-and-down">
+              Crypto Tracker
+ </a>
+ <!-- small font on small screens -->
+ <a href="{% url 'home' %}" class="navbar-brand ml-10 font-size-12 hidden-md-and-up">
+              Crypto Tracker
+</a>
+            
+      <ul class="navbar-nav hidden-sm-and-down">
+      <li class="nav-item"> 
+           <a href= "{% url 'home' %}" class="nav-link">Home</a>
+      </li>
+
+      {% if user.is_authenticated %}
+      <li 
+      class="nav-item"
+      hx-post="{% url 'account_logout' %}"
+      hx-trigger= "click"
+      hx-confirm="Are you sure you wish to log out?"
+      hx-target= "#content"
+      > 
+         <span class="nav-link"> Log out </span>
+      </li>
+      {% else %}
+      <li class="nav-item">
+         <a href= "{% url 'account_signup' %}" class="nav-link"> Sign up </a>
+      </li>
+
+       <li class="nav-item">
+         <a href= "{% url 'account_login' %}" class="nav-link">Log in</a>
+       </li>
+      {% endif %}
+       </ul>
+            
+<div class="custom-switch mr-5 navbar-text d-inline-block">      
+<input 
+type="checkbox" 
+id="switch-1" 
+value="" 
+onclick="halfmoon.toggleDarkMode()">
+   <label for="switch-1" class= "font-size-12">Dark Mode</label>
+</div>
+                
+<div class="dropdown with-arrow hidden-md-and-up ml-auto">
+<button class="btn navbar-menu-btn" 
+data-toggle="dropdown" 
+type="button" 
+id="navbar-dropdown-toggle-btn" 
+aria-haspopup="true" 
+aria-expanded="false">
+ <span class="text">Menu</span>
+</button>
+                    
+<div 
+class="dropdown-menu dropdown-menu-left" 
+aria-labelledby="navbar-dropdown-toggle-btn">
+     <a class="dropdown-item" href="{% url 'home' %}"> Home </a>
+     {% if user.is_authenticated %}
+     <span 
+     class="dropdown-item" 
+     hx-post="{% url 'account_logout' %}"
+     hx-trigger= "click"
+     hx-confirm="Are you sure you wish to log out?"
+     hx-target= "#content"
+     >
+     Log out 
+     </span>
+      {% else %}
+     <a class="dropdown-item" href="{% url 'account_signup' %}">
+     Sign up 
+     </a>
+
+     <a class="dropdown-item" href="{% url 'account_login' %}"> 
+     Log in 
+     </a>
+     {% endif %}
+                  
+</div>
+</div>           
+</nav>

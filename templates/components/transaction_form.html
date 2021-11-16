@@ -24,35 +24,37 @@
                 </div>
 
                 <div class="col-6 mt-5">
-                {{form.sold_currency_amount}}
+                {{form.sold_currency_amount|as_crispy_field}}
                 </div>
                 
                 <div class="col-6 mt-5">
-                {{form.bought_currency_amount}}
+                {{form.bought_currency_amount|as_crispy_field}}
                 </div>
             
 
             
                 <div class="col-6 mt-5">
-                {{form.sold_currency}}
+                {{form.sold_currency|as_crispy_field}}
+                <div id="results_sold"> </div> <!-- suggestions would be here --> 
                 </div>
 
                 <div class="col-6 mt-5">
-                {{form.bought_currency}}
+                {{form.bought_currency|as_crispy_field}}
+                <div id="results_bought"> </div> <!-- suggestions would be here --> 
                 </div>
          
 
 
                 <div class="col-6 mt-5">
-                {{form.sold_currency_fee}}
+                {{form.sold_currency_fee|as_crispy_field}}
                 </div>
 
                 <div class="col-6 mt-5">
-                {{form.bought_currency_fee}}
+                {{form.bought_currency_fee|as_crispy_field}}
                 </div>
            
             </div>
-                <div class="text-right">
+                <div class="text-left">
                 <button class="btn btn-primary"> Submit </button>
                 </div>
             </form>

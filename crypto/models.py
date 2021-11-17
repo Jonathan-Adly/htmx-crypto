@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator
+
 from datetime import date
 
 
@@ -14,20 +16,17 @@ class Transaction(models.Model):
 
     sold_currency = models.CharField(max_length=3)
     sold_currency_amount = models.DecimalField(
-        max_digits=19,
-        decimal_places=10,
+        max_digits=19, decimal_places=10, validators=[MaxValueValidator(0)]
     )
 
     sold_currency_fee = models.DecimalField(
-        max_digits=19,
-        decimal_places=10,
+        max_digits=19, decimal_places=10, blank=True, validators=[MaxValueValidator(0)]
     )
     bought_currency = models.CharField(max_length=3)
     bought_currency_amount = models.DecimalField(max_digits=19, decimal_places=10)
 
     bought_currency_fee = models.DecimalField(
-        max_digits=19,
-        decimal_places=10,
+        max_digits=19, decimal_places=10, blank=True, validators=[MaxValueValidator(0)]
     )
 
     price = models.DecimalField(max_digits=19, decimal_places=10)
@@ -39,11 +38,13 @@ class Transaction(models.Model):
         return f"{self.user.email} on {self.exchange} - {self.date}"
 
     def save(self, *args, **kwargs):
-        self.price = (self.sold_currency_amount + self.sold_currency_fee) / (
-            self.bought_currency_amount + self.bought_currency_fee
-        )
         if not self.bought_currency_fee:
             self.bought_currency_fee = 0
         if not self.sold_currency_fee:
             self.sold_currency_fee = 0
+
+        self.price = (self.sold_currency_amount + self.sold_currency_fee) / (
+            self.bought_currency_amount + self.bought_currency_fee
+        )
+
         super(Transaction, self).save(*args, **kwargs)

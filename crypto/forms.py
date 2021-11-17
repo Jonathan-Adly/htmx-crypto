@@ -1,8 +1,7 @@
 from django import forms
 from .models import Transaction
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
-
+from datetime import date
+from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 
 
@@ -47,7 +46,7 @@ class TransactionForm(forms.ModelForm):
                 attrs={
                     "placeholder": "Fiat or Crypto",
                     "autocomplete": "off",
-                    "hx-trigger": "click",
+                    "hx-trigger": "focus",
                     "hx-get": reverse_lazy(
                         "currencies", kwargs={"input_clicked": "sold"}
                     ),
@@ -68,7 +67,7 @@ class TransactionForm(forms.ModelForm):
                 attrs={
                     "placeholder": "Fiat or Crypto",
                     "autocomplete": "off",
-                    "hx-trigger": "click",
+                    "hx-trigger": "focus",
                     "hx-get": reverse_lazy(
                         "currencies", kwargs={"input_clicked": "bought"}
                     ),
@@ -81,3 +80,27 @@ class TransactionForm(forms.ModelForm):
                 }
             ),
         }
+
+    def clean_date(self):
+        data = self.cleaned_data["date"]
+        if data > date.today():
+            raise ValidationError("You can't enter a future transaction!")
+        return data
+
+    def clean_sold_currency_amount(self):
+        data = self.cleaned_data["sold_currency_amount"]
+        if data and data > 0:
+            data = data * -1
+        return data
+
+    def clean_sold_currency_fee(self):
+        data = self.cleaned_data["sold_currency_fee"]
+        if data and data > 0:
+            data = data * -1
+        return data
+
+    def clean_bought_currency_fee(self):
+        data = self.cleaned_data["bought_currency_fee"]
+        if data and data > 0:
+            data = data * -1
+        return data

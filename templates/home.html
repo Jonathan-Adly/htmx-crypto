@@ -7,11 +7,13 @@
 
 <div class="content">
 {% if request.user.is_authenticated %}
-<div class="card" id= "transaction">
+<div class="card" id= "transaction_form">
 {% include 'components/transaction_form.html'%}
-
 </div>
 
+<div class= "content" id="transactions">
+
+</div>
 {% else %}
 <div hx-boost="true">
 To start please <a href= "{% url 'account_signup' %}"> make an account </a> or <a href="{% url 'account_login' %}"> login</a>.

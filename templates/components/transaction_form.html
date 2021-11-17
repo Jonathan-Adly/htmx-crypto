@@ -1,8 +1,11 @@
        
             {% load crispy_forms_tags %}
         
-            <form class="container">
-            {% if errors %} {{errors}} {% endif %}
+            <form 
+            class="container"
+            hx-post= "{% url 'home' %}"
+            hx-target= "#transaction_form"
+            >
              <div class="form-row row-eq-spacing-sm">
                 <div class="col-sm">
                     {{form.date|as_crispy_field}}

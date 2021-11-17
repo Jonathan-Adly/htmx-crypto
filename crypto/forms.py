@@ -3,7 +3,7 @@ from .models import Transaction
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 
-# from django.urls import reverse_lazy
+from django.urls import reverse_lazy
 
 
 class DateInput(forms.DateInput):
@@ -46,6 +46,12 @@ class TransactionForm(forms.ModelForm):
             "sold_currency": forms.TextInput(
                 attrs={
                     "placeholder": "Fiat or Crypto",
+                    "autocomplete": "off",
+                    "hx-trigger": "click",
+                    "hx-get": reverse_lazy(
+                        "currencies", kwargs={"input_clicked": "sold"}
+                    ),
+                    "hx-target": "#results_sold",
                 }
             ),
             "sold_currency_fee": forms.TextInput(
@@ -61,6 +67,12 @@ class TransactionForm(forms.ModelForm):
             "bought_currency": forms.TextInput(
                 attrs={
                     "placeholder": "Fiat or Crypto",
+                    "autocomplete": "off",
+                    "hx-trigger": "click",
+                    "hx-get": reverse_lazy(
+                        "currencies", kwargs={"input_clicked": "bought"}
+                    ),
+                    "hx-target": "#results_bought",
                 }
             ),
             "bought_currency_fee": forms.TextInput(

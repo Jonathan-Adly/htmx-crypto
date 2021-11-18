@@ -51,7 +51,7 @@ class TransactionForm(forms.ModelForm):
                         "currencies", kwargs={"input_clicked": "sold"}
                     ),
                     "hx-target": "#results_sold",
-                    "_": "on blur remove #currencies",
+                    "_": "on blur wait 300ms then remove #currencies",
                 }
             ),
             "sold_currency_fee": forms.TextInput(
@@ -73,7 +73,7 @@ class TransactionForm(forms.ModelForm):
                         "currencies", kwargs={"input_clicked": "bought"}
                     ),
                     "hx-target": "#results_bought",
-                    "_": "on blur remove #currencies",
+                    "_": "on blur wait 300ms then remove #currencies",
                 }
             ),
             "bought_currency_fee": forms.TextInput(

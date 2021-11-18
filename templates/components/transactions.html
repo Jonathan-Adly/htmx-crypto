@@ -1,0 +1,26 @@
+{% for transaction in transactions %}
+<div class="card row">   
+    <div class="col-3">
+    <p> Transacation date: {{transaction.date}} </p>
+    {% if transaction.exchange %}  <small> Exchange: {{transaction.exchange}} </small> {% endif %}
+    </div>
+
+     <div class="col-3">
+    <p> {{transaction.sold_currency_amount|floatformat:2}} {{transaction.sold_currency}} </p>
+    {% if transaction.sold_currency_fee %}  <small> Fees: {{transaction.sold_currency_fee|floatformat:2}} {{transaction.sold_currency}}</small>  {% endif %}
+    </div>
+
+    <div class="col-3">
+    <p>{{transaction.bought_currency_amount|floatformat:2}} {{transaction.bought_currency}} </p>
+    {% if transaction.bought_currency_fee %} <small> {{transaction.bought_currency_fee|floatformat:2}} {{transaction.bought_currency}}  </small> {% endif %}
+    </div>
+
+     <div class="col-3">
+    <p>{{transaction.price|floatformat:9}} {{transaction.sold_currency}} per 1 {{transaction.bought_currency}} </p>
+    </div>
+</div>
+        {% empty %}
+        <div class="row card">
+            <p> No transactions yet </p>
+        </div>
+    {% endfor %}

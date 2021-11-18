@@ -32,7 +32,7 @@ class Transaction(models.Model):
     price = models.DecimalField(max_digits=19, decimal_places=10)
 
     class Meta:
-        ordering = ["date"]
+        ordering = ["-date"]
 
     def __str__(self):
         return f"{self.user.email} on {self.exchange} - {self.date}"

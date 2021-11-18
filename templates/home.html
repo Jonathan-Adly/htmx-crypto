@@ -11,8 +11,9 @@
 {% include 'components/transaction_form.html'%}
 </div>
 
-<div class= "content" id="transactions">
 
+<div class= "content" id="transactions">
+   {% include 'components/transactions.html' %}
 </div>
 {% else %}
 <div hx-boost="true">

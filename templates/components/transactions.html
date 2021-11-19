@@ -1,5 +1,5 @@
 {% for transaction in transactions %}
-<div class="card row">   
+<div class="card row"> 
     <div class="col-3">
     <p> Transacation date: {{transaction.date}} </p>
     {% if transaction.exchange %}  <small> Exchange: {{transaction.exchange}} </small> {% endif %}
@@ -24,3 +24,14 @@
             <p> No transactions yet </p>
         </div>
     {% endfor %}
+
+    {% if transactions.has_next %}
+    <button
+        class= "btn btn-primary"
+        hx-get="/transactions?page={{ transactions.next_page_number }}"
+        hx-swap="outerHTML"
+        >
+        Load More
+            <p class="htmx-indicator"> Loading... </p>
+</button>
+    {% endif %}

@@ -12,9 +12,15 @@
 </div>
 
 
-<div class= "content" id="transactions">
-   {% include 'components/transactions.html' %}
+<div class= "content" id="transactions" 
+hx-trigger= "load"
+hx-get = "{% url 'transactions' %}"
+>
+<p class="htmx-indicator"> Loading... </p>
 </div>
+
+ 
+   
 {% else %}
 <div hx-boost="true">
 To start please <a href= "{% url 'account_signup' %}"> make an account </a> or <a href="{% url 'account_login' %}"> login</a>.

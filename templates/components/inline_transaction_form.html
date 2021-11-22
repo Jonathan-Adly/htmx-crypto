@@ -1,0 +1,57 @@
+{% load crispy_forms_tags %}
+<div class="card row" hx-swap="outerHTML" hx-target="this"> 
+    <form hx-post= "{% url 'inline_form' transaction.pk %}">
+        {% if errors %} {{errors}} {% endif %} 
+        <div class="form-row row-eq-spacing-sm">
+    
+            <div class="col-3">
+                <p> {{inline_form.date|as_crispy_field}} </p>
+                <p> {{inline_form.exchange|as_crispy_field}} </P>
+            </div>
+
+            <div class="col-3">
+        
+                <div class="input-group m-20">
+                    <label class="required font-weight-bold">Paid / Sent / Withdrawn: </label> 
+                        {{inline_form.sold_currency_amount}} 
+                    <div class="input-group-append">
+                        <span class="input-group-text">{{transaction.sold_currency}}</span>
+                    </div>
+                    <div class= "d-none"> {{inline_form.sold_currency}} </div>
+                </div>
+
+                <div class="input-group m-20">
+                    <label class="required font-weight-bold">Bought / Received / Deposited</label>
+                    {{inline_form.bought_currency_amount}} 
+           
+                <div class="input-group-append">
+                    <span class="input-group-text">{{transaction.bought_currency}}</span>
+                </div>
+                <div class= "d-none"> {{inline_form.bought_currency}} </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="input-group m-20">
+                    <label> Fees on your sold currency (if any): </label> 
+                    {{inline_form.sold_currency_fee}} 
+                    <div class="input-group-append">
+                        <span class="input-group-text">{{transaction.sold_currency}} </span>
+                    </div>
+                </div>
+
+                <div class="input-group m-20">
+                    <label> Fees on your bought currency (if any): </label> 
+                    {{inline_form.bought_currency_fee}} 
+                    <div class="input-group-append">
+                        <span class="input-group-text">{{transaction.bought_currency}} </span>
+                    </div>
+                </div>
+                <div class= "text-right"> 
+                    <button class= "btn btn-primary" > Submit  </button>
+                </div>
+            </div>
+   
+        </div>
+    </form>
+</div>

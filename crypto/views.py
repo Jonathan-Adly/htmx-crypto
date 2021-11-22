@@ -46,3 +46,33 @@ def transactions(request):
         "components/transactions.html",
         {"transactions": transactions},
     )
+
+
+def inline_form(request, transaction_pk):
+    transaction = get_object_or_404(Transaction, pk=transaction_pk)
+    inline_form = TransactionForm(instance=transaction)
+    if request.method == "POST":
+        form = TransactionForm(request.POST, instance=transaction)
+        if form.is_valid():
+            transaction = form.save()
+            return render(
+                request,
+                "components/single_transaction.html",
+                {"transaction": transaction},
+            )
+        else:
+            return render(
+                request,
+                "components/inline_transaction_form.html",
+                {
+                    "inline_form": inline_form,
+                    "transaction": transaction,
+                    "errors": form.errors,
+                },
+            )
+
+    return render(
+        request,
+        "components/inline_transaction_form.html",
+        {"inline_form": inline_form, "transaction": transaction},
+    )

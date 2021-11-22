@@ -37,6 +37,12 @@ class Transaction(models.Model):
     def __str__(self):
         return f"{self.user.email} on {self.exchange} - {self.date}"
 
+    def alt_price(self):
+        price = (self.bought_currency_amount + self.bought_currency_fee) / (
+            self.sold_currency_amount + self.sold_currency_fee
+        )
+        return price
+
     def save(self, *args, **kwargs):
         if not self.bought_currency_fee:
             self.bought_currency_fee = 0

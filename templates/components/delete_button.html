@@ -1,0 +1,22 @@
+  <div class="position-absolute bottom-0 bottom-sm-auto top-sm-0 right-0"> 
+    <button 
+    class="btn btn-danger btm m-10" 
+    type="button"
+    hx-delete= "{% url 'delete' transaction.pk %}"
+    hx-trigger = 'confirmed'
+    hx-target = "#transactions"
+     _="on click
+             call Swal.fire({ 
+                title: 'Are you sure?',
+                text: 'You will not be able to reverse this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#3085d6',
+                heightAuto: false
+            })
+             if result.isConfirmed trigger confirmed then call halfmoon.toastAlert('alert-2', 3500)">
+    Delete
+    </button>
+  </div>

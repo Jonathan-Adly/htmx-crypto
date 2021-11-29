@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_http_methods
+
 
 from .models import Transaction
 from .forms import TransactionForm
@@ -76,3 +77,10 @@ def inline_form(request, transaction_pk):
         "components/inline_transaction_form.html",
         {"inline_form": inline_form, "transaction": transaction},
     )
+
+
+@require_http_methods(["DELETE"])
+def delete(request, transaction_pk):
+    transaction = get_object_or_404(Transaction, pk=transaction_pk)
+    transaction.delete()
+    return redirect("transactions")

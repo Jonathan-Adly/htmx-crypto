@@ -1,0 +1,10 @@
+   <div class="col-3 position-relative">
+    <p id="default-price-{{transaction.pk}}" class="d-block">
+    {{transaction.price|floatformat:9}} {{transaction.sold_currency}} per 1 {{transaction.bought_currency}} </p>
+    <p id="alt-price-{{transaction.pk}}" class="d-none">
+    {{transaction.alt_price|floatformat:9}} {{transaction.bought_currency}} per 1 {{transaction.sold_currency}} </p>
+    <button 
+    class="btn"
+    _ = "on click toggle between .d-none and .d-block on #alt-price-{{transaction.pk}} then toggle between .d-none and .d-block on #default-price-{{transaction.pk}}" 
+    > Flip the price </button>
+    </div>

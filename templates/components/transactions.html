@@ -6,7 +6,7 @@
             <p> No transactions yet </p>
         </div>
     {% endfor %}
-
+<div class="row justify-content-between">
     {% if transactions.has_next %}
     <button
         class= "btn btn-primary"
@@ -17,3 +17,8 @@
             <p class="htmx-indicator"> Loading... </p>
 </button>
     {% endif %}
+
+<div hx-include="#taxable-form" hx-target="#transactions">
+  <a class="btn" hx-post="{% url 'taxable' %}"> Change Taxable Status </a>
+</div>
+</div>

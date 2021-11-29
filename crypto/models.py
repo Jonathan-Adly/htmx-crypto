@@ -30,6 +30,7 @@ class Transaction(models.Model):
     )
 
     price = models.DecimalField(max_digits=19, decimal_places=10)
+    taxable = models.BooleanField(default=True)
 
     class Meta:
         ordering = ["-date"]

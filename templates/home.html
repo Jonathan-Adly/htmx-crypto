@@ -12,14 +12,16 @@
 </div>
 
 
+<form id= "taxable-form">
 <div class= "content" id="transactions" 
 hx-trigger= "load"
 hx-get = "{% url 'transactions' %}"
 >
-<p class="htmx-indicator"> Loading... </p>
-</div>
 
- 
+<p class="htmx-indicator"> Loading... </p>
+
+</div>
+</form>
    
 {% else %}
 <div hx-boost="true">

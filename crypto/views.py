@@ -84,3 +84,19 @@ def delete(request, transaction_pk):
     transaction = get_object_or_404(Transaction, pk=transaction_pk)
     transaction.delete()
     return redirect("transactions")
+
+
+@require_POST
+def taxable(request):
+    transactions = request.POST.getlist("transaction_tax")
+    query_set = []
+    for item in transactions:
+        transaction = Transaction.objects.get(pk=item)
+        if transaction.taxable:
+            transaction.taxable = False
+        else:
+            transaction.taxable = True
+        # could do transaction.save() here, but bulk_update is faster
+        query_set.append(transaction)
+    Transaction.objects.bulk_update(query_set, ["taxable"])
+    return redirect("transactions")

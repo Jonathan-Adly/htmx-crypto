@@ -2,6 +2,7 @@
     <div class="col-3">
     <p> Transacation date: {{transaction.date}} </p>
     {% if transaction.exchange %}  <small> Exchange: {{transaction.exchange}} </small> {% endif %}
+    {% if transaction.taxable %} <p> <mark> Taxable event </mark> </p> {% endif %}
     <p> 
     <a
     hx-get="{% url 'inline_form' transaction.pk %}"
@@ -22,5 +23,6 @@
 
     {% include 'components/flip_price_button.html' %}
     {% include 'components/delete_button.html' %}
+    {% include 'components/taxable_checkbox.html' %}
 </div>
        
